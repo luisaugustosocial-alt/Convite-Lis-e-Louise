@@ -1,22 +1,28 @@
 # Convite Liz & Louise 🍒
 
-Site responsivo com animação de regar cerejas, cartões Liquid Glass, sugestões de presentes, RSVP online e painel administrativo.
+Site responsivo com animação de regar cerejas, visual Liquid Glass, sugestões de presentes, confirmação online e painel administrativo usando **Firebase**.
 
 ## Arquivos
-- `index.html`: convite público.
-- `admin.html`: painel administrativo com login, edição dos detalhes, upload de foto e lista de confirmações.
-- `config.example.js`: modelo de configuração do Supabase.
-- `supabase-setup.sql`: tabelas e políticas de acesso.
+- `index.html`: convite público; a animação de regar revela os detalhes da festa.
+- `admin.html`: painel com login, edição dos dados, upload da foto e lista de confirmações.
+- `firebase-config.example.js`: modelo da configuração do app Web.
+- `firestore.rules`: regras para detalhes do evento e confirmações.
+- `storage.rules`: regras de acesso às fotos.
 
-## Para habilitar o painel e o RSVP real
-1. Crie um projeto em https://supabase.com/.
-2. Em **Project Settings → API**, copie a Project URL e a chave pública anon/publishable.
-3. Crie `config.js` na raiz copiando `config.example.js` e preenchendo esses dois valores. A chave pública pode ficar no frontend; nunca coloque a chave `service_role`.
-4. No Supabase, abra **SQL Editor**, cole e execute `supabase-setup.sql`.
-5. Em **Authentication → Users**, crie o usuário administrador com e-mail e senha. Desative o cadastro público se não quiser permitir novos usuários.
-6. Envie `index.html`, `admin.html`, `config.js` e os demais arquivos para a raiz do repositório GitHub. A Vercel redeploya automaticamente.
-7. Acesse `/admin.html` no domínio publicado e entre com o usuário que criou.
+## Configuração Firebase (necessária para funcionar online)
+1. Acesse https://console.firebase.google.com/ e crie um projeto.
+2. Adicione um app Web e copie a configuração exibida.
+3. Crie na raiz do repositório um arquivo chamado `firebase-config.js), copiando `firebase-config.example.js` e substituindo todos os campos de exemplo pelos valores reais.
+4. No Firebase Console, ative **Authentication → Sign-in method → Email/Password**.
+5. Em **Authentication → Users**, adicione o e-mail e a senha da administradora.
+6. Crie o **Cloud Firestore** em modo produção.
+7. Abra **Firestore Database → Rules**, cole o conteúdo de `firestore.rules` e substitua `COLOQUE_AQUI_O_EMAIL_ADMIN` pelo e-mail exato da administradora. Publique as regras.
+8. Ative **Storage**, abra suas Rules, cole `storage.rules`, troque também o e-mail de administradora e publique. Se o console solicitar configuração de cobrança para Storage, siga as condições atuais do Firebase do seu projeto.
+9. Faça commit de `firebase-config.js` no repositório. A Vercel fará um novo deploy automaticamente.
+10. Acesse `/admin.html), entre com a conta administradora, preencha data/horário/local, envie a foto e salve.
 
-## Segurança e limitações
-As políticas SQL deste modelo consideram qualquer usuário autenticado como administrador. Mantenha o cadastro público desativado e crie apenas a conta da organizadora. Se houver outros usuários no projeto Supabase, implemente uma allowlist de administradores antes de liberar acesso.
-O formulário guarda os nomes enviados no banco de dados. Avise os convidados que os dados serão usados para organizar a festa e não colete informações desnecessárias.
+## Importante
+- O arquivo `firebase-config.js` contém a configuração pública do app web, não uma senha de servidor. Nunca publique service-account keys ou credenciais privadas.
+- As regras limitam leitura das confirmações e alterações às contas autenticadas com o e-mail de administradora indicado nas regras. Use apenas a conta autorizada para administração.
+- Convidados podem enviar nomes e acompanhantes; só a administradora pode ler a lista.
+- O formulário só registra confirmações depois que Firebase estiver configurado e as regras publicadas.
