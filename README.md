@@ -7,7 +7,7 @@ Site responsivo com animação de regar cerejas, visual Liquid Glass, sugestões
 - `admin.html`: painel com login, edição dos dados, upload da foto e lista de confirmações.
 - `firebase-config.example.js`: modelo da configuração do app Web.
 - `firestore.rules`: regras para detalhes do evento e confirmações.
-- `storage.rules`: regras de acesso às fotos.
+- As fotos são hospedadas no ImageKit; o painel salva no Firestore apenas o URL público da imagem.
 
 ## Configuração Firebase (necessária para funcionar online)
 1. Acesse https://console.firebase.google.com/ e crie um projeto.
