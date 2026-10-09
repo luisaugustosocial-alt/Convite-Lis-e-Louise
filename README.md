@@ -1,17 +1,22 @@
 # Convite Liz & Louise 🍒
 
-Site responsivo de convite de aniversário com tema de cerejas, efeito Liquid Glass, interação para regar as cerejas, sugestões de presentes e campos para confirmação de presença.
+Site responsivo com animação de regar cerejas, cartões Liquid Glass, sugestões de presentes, RSVP online e painel administrativo.
 
-## Personalizar
-- Em `index.html`, substitua `[Data da festa]`, `[Horário]`, `[Nome do espaço]` e `[Endereço]`.
-- Para inserir a foto, coloque um arquivo chamado `foto-liz-louise.jpg` na raiz e substitua o conteúdo da `div.photo` por:
-  `<img src="foto-liz-louise.jpg" alt="Liz e Louise">`
+## Arquivos
+- `index.html`: convite público.
+- `admin.html`: painel administrativo com login, edição dos detalhes, upload de foto e lista de confirmações.
+- `config.example.js`: modelo de configuração do Supabase.
+- `supabase-setup.sql`: tabelas e políticas de acesso.
 
-## Publicar no GitHub Pages
-1. Abra **Settings → Pages**.
-2. Em **Build and deployment**, escolha **Deploy from a branch**.
-3. Selecione a branch `main` e a pasta `/(root)`; salve.
-4. Aguarde a URL do site aparecer na tela Pages.
+## Para habilitar o painel e o RSVP real
+1. Crie um projeto em https://supabase.com/.
+2. Em **Project Settings → API**, copie a Project URL e a chave pública anon/publishable.
+3. Crie `config.js` na raiz copiando `config.example.js` e preenchendo esses dois valores. A chave pública pode ficar no frontend; nunca coloque a chave `service_role`.
+4. No Supabase, abra **SQL Editor**, cole e execute `supabase-setup.sql`.
+5. Em **Authentication → Users**, crie o usuário administrador com e-mail e senha. Desative o cadastro público se não quiser permitir novos usuários.
+6. Envie `index.html`, `admin.html`, `config.js` e os demais arquivos para a raiz do repositório GitHub. A Vercel redeploya automaticamente.
+7. Acesse `/admin.html` no domínio publicado e entre com o usuário que criou.
 
-## Importante
-O formulário atualmente é uma demonstração local e não envia nem armazena confirmações. Antes de compartilhar o convite, conecte-o a um serviço de formulários ou backend.
+## Segurança e limitações
+As políticas SQL deste modelo consideram qualquer usuário autenticado como administrador. Mantenha o cadastro público desativado e crie apenas a conta da organizadora. Se houver outros usuários no projeto Supabase, implemente uma allowlist de administradores antes de liberar acesso.
+O formulário guarda os nomes enviados no banco de dados. Avise os convidados que os dados serão usados para organizar a festa e não colete informações desnecessárias.
