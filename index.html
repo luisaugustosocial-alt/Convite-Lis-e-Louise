@@ -89,6 +89,13 @@
 .revealed-details.unlocked{animation:cake-enter .85s cubic-bezier(.2,.75,.2,1) both}
 @media(max-width:650px){.cake-game{grid-template-columns:1fr;gap:12px;padding:12px}.cake-stage{height:285px}.cake-body{bottom:65px;height:106px;width:70%}.cake-top{bottom:154px;width:70%}.cake-plate{bottom:22px}.cake-shadow{bottom:51px}.cake-base{bottom:62px;width:72%}.cake-label{bottom:88px}.cherry-tray{min-height:0;padding:10px;display:grid;grid-template-columns:1fr 1fr;gap:4px}.cherry-tray>p:first-child{grid-column:1/-1}.cherry-pair{grid-row:2/4;height:82px}.tray-hint{align-self:end}.cake-progress{align-self:start}.cake-tray .secondary{grid-column:1/-1}}
 @media(prefers-reduced-motion:reduce){.cake-game,.revealed-details.unlocked,.cherry-target.filled:after{animation:none!important;transition:none!important}}
+
+/* Desativar todas as animações e transições visuais */
+*, *::before, *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
 </style></head><body>
 <nav><a href="#inicio">Início</a><a href="#informacoes">Informações</a><a href="#presentes">Presentes</a><a href="#presenca">Confirmar presença</a></nav>
 <header class="hero" id="inicio"><div class="photo" id="photoArea"><div class="placeholder"><strong>♡</strong>Foto da Liz e da Louise<br><small>A foto poderá ser adicionada pela administração</small></div></div><div class="hero-copy"><div class="eyebrow">Uma comemoração muito especial</div><h1>Liz & Louise</h1><p id="welcomeText">Nosso maior doce é celebrar a vida com você!</p><div class="cherry-ornament" aria-hidden="true"><span></span><span></span><i></i></div><p style="font:1rem Arial,sans-serif">Duas pequenas cerejinhas completando 2 aninhos!</p></div></header>
