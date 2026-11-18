@@ -19,9 +19,8 @@ service cloud.firestore {
         && request.resource.data.companions is list
         && request.resource.data.companions.size() <= 10;
 
-      // Apenas contas autenticadas podem consultar as confirmações.
-      allow read: if isSignedIn();
-      allow update, delete: if false;
+      // Contas autenticadas podem consultar, editar e excluir confirmações.
+      allow read, update, delete: if isSignedIn();
     }
   }
 }
